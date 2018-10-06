@@ -5,6 +5,7 @@
 
 - npm i
 - node server.js
+- http://http://localhost:3000
 
 #Live Demo
 - https://limitless-sierra-36167.herokuapp.com

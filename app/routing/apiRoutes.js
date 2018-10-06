@@ -32,7 +32,8 @@ module.exports = function(app) {
   // ---------------------------------------------------------------------------
 
   app.post("/api/friends", function(req, res) {
-  
+    
+    //variable to hold myMatch
     var myMatch = {
       name: "",
       photo: "",
@@ -42,7 +43,6 @@ module.exports = function(app) {
     //console.log(req.body); //Results of submit form
 
     var userData = req.body;
-    //var userName = userData.name;
     var userScore = userData.scores;
     var totalDifference = 0;
     
@@ -51,21 +51,22 @@ module.exports = function(app) {
     //loop thru list of friends
     for (i = 0; i < friends.length; i++) {
               
+      var totalDifference = 0;
+
       //for reach friend, calculate totalDifference
       for (j = 0; j < userScore.length; j++) {
         //calculate absolute difference between what's in friends array from data submitted form
-        totalDifference += Math.abs(userScore[j] - friends[i].scores[j]);
+        totalDifference += Math.abs(parseInt(userScore[j]) - parseInt(friends[i].scores[j]));
         
         //if there is best match then friend array match gets put into myMatch array
         if (totalDifference <= myMatch.difference) {
           myMatch.name = friends[i].name;
           myMatch.photo = friends[i].photo;
+          myMatch.difference = totalDifference;
         }
       }
     }
-
     friends.push(userData); //Add to friends array
-    console.log(myMatch); //Console log to screen
     res.json(myMatch);  //Output to htmp by calling modal
   });
 
